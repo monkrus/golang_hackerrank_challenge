@@ -37,19 +37,16 @@ import (
 
 func main() {
 
-	file, err := os.Open("data/a.txt")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			line := scanner.Text()
-			fmt.Println(line)
-		}
-	}
-	file.Close()
-
+s := bufio.NewScanner(os.Stdin)
+    fmt.Println("Hello, World.")
+    for s.Scan() {
+        fmt.Println(s.Text())
+    }
 }
+	
+// Variable `s`  is assigned to the  stdin input
+// Print out the first line
+// Print out the content of the inputString variable
 
 ********
 
@@ -108,9 +105,10 @@ fmt.Printf("\n%s%s", s, z)
 }
 ********************
 /* 3.
-Given the meal price (base cost of a meal), tip percent (the percentage of the meal price being added as tip), and tax percent (the percentage of the meal price being added as tax) for a meal, find and print the meal's total cost.
+Given the meal price (base cost of a meal), tip percent (the percentage of the meal price being added as tip),
+and tax percent (the percentage of the meal price being added as tax) for a meal, find and print the meal's total cost.
 
-/*Note: Be sure to use precise values for your calculations, or you may end up with an incorrectly rounded result!
+Note: Be sure to use precise values for your calculations, or you may end up with an incorrectly rounded result!*/
 
 package main
 
@@ -118,7 +116,7 @@ import (
     "bufio"
     "fmt"
     "io"
-    "os"
+    "os"itHub, Inc.
     "strconv"
     "strings"
     "math"
@@ -167,3 +165,142 @@ func checkError(err error) {
 
 
 **************************
+
+/*
+4. 
+Given an integer, , perform the following conditional actions:
+If  is odd, print Weird
+If  is even and in the inclusive range of  to , print Not Weird
+If  is even and in the inclusive range of  to , print Weird
+If  is even and greater than , print Not Weird
+Complete the stub code provided in your editor to print whether or not  is weird.
+
+*/
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"os"
+	"strconv"
+	"strings"
+)
+
+func main() {
+	reader := bufio.NewReaderSize(os.Stdin, 1024*1024)
+
+	NTemp, err := strconv.ParseInt(readLine(reader), 10, 64)
+	checkError(err)
+	N := int32(NTemp)
+	if N%2 != 0 {
+		fmt.Printf("Weird")
+	} else {
+		if N >= 2 && N <= 5 {
+			fmt.Printf("Not Weird")
+		} else if N >= 6 && N <= 20 {
+			fmt.Printf("Weird")
+		}
+		if N > 20 {
+			fmt.Printf("Not Weird")
+		}
+	}
+}
+
+func readLine(reader *bufio.Reader) string {
+	str, _, err := reader.ReadLine()
+	if err == io.EOF {
+		return ""
+	}
+
+	return strings.TrimRight(string(str), "\r\n")
+}
+
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+*******************8
+/* 5.
+Write a Person class with an instance variable, aga, and a constructor that takes an integer, initialAge, as a parameter.
+
+The constructor must assign initialAge to age after confirmaing the argument passed as initialAge is not negative.
+If a negative argument is passed initialAge, the constructor should set age to 0 and print `age is not valid`, setting age to 0.
+
+In addition, you should perform the following actions:
+- yearPasses() should increase the age variable  by 1
+- amIOld() should perfomr the following actions
+
+If age<13 , print You are young..
+
+If  and age>13, print You are a teenager..
+
+Otherwise, print You are old..
+
+*/
+package main
+import "fmt"
+
+type person struct {
+	age int
+}
+
+
+func (p person) NewPerson(initialAge int) person {
+    //Add some more code to run some checks on initialAge
+    if initialAge < 0 {
+        fmt.Println("Age is not valid, setting age to 0.")
+        p.age = 0
+    }
+
+    return p
+}
+
+func (p person) amIOld() {
+    //Do some computation in here and print out the correct statement to the console
+    if p.age < 13 {
+        fmt.Println("You are young.")
+    } else if p.age >= 13 && p.age < 18 {
+        fmt.Println("You are a teenager.")
+    } else {
+        fmt.Println("You are old.")
+    }
+}
+
+func (p person) yearPasses() person {
+    //Increment the age of the person in here
+    p.age++
+
+    return p
+}
+
+
+func main() {
+    var T,age int
+
+    fmt.Scan(&T)
+
+    for i := 0; i < T; i++ {
+        fmt.Scan(&age)
+        p := person{age: age}
+        p = p.NewPerson(age)
+        p.amIOld()
+        for j := 0; j < 3; j++ {
+            p = p.yearPasses()
+        }
+        p.amIOld()
+        fmt.Println()
+    }
+}
+
+
+/* 6.
+
+*/
+
+
+
+
+
