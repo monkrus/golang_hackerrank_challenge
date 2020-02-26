@@ -297,10 +297,94 @@ func main() {
 
 
 /* 6.
-
+Given an integer, n, print its first 10 multiples. 
+Each multiple n x i (where 1<= i <=10) should be printed on a new line in the form: n x i = result.
 */
 
+package main
+
+import (
+    "bufio"
+    "fmt"
+    "io"
+    "os"
+    "strconv"
+    "strings"
+)
 
 
+
+func main() {
+    reader := bufio.NewReaderSize(os.Stdin, 1024 * 1024)
+
+    nTemp, err := strconv.ParseInt(readLine(reader), 10, 64)
+    checkError(err)
+    n := int32(nTemp)
+    for result := 1; result <= 10; result++ {
+    fmt.Printf("%d x %d = %d\n", n, result, n*int32(result))
+}
+    
+    }
+
+
+func readLine(reader *bufio.Reader) string {
+    str, _, err := reader.ReadLine()
+    if err == io.EOF {
+        return ""
+    }
+
+    return strings.TrimRight(string(str), "\r\n")
+}
+
+func checkError(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
+
+
+/*  7.
+
+Task
+Given a string,S, of length N that is indexed from 0 to N-1 , 
+print its even-indexed and odd-indexed characters as  space-separated strings 
+on a single line (see the Sample below for more detail).
+
+Note: 0 is considered to be an even index.
+*/
+package main
+import (
+    "fmt"
+    "os"
+    "bufio"
+    "strings"
+)
+
+func main() {
+    var tests, length int
+    var input, even, odd string
+
+    scanner := bufio.NewScanner(os.Stdin)
+    fmt.Scanf("%d", &tests)
+
+    for i :=0; i<tests; i++{
+        even = ""
+        odd = ""
+        scanner.Scan()
+        input = scanner.Text()
+        length = len(input)
+        chars := strings.Split(input, "")
+
+        for j:=0; j<length; j++{
+            if j%2 == 0{
+                even += chars[j]
+            }else{
+                odd += chars[j]
+            }
+        }
+
+        fmt.Println(even, odd)
+    }
+}
 
 
