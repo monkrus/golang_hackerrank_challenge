@@ -361,20 +361,28 @@ import (
 )
 
 func main() {
+    // set variables for  AMOUNT if TESTS and LENGTH of repetitions
     var tests, length int
+    // set variables for INPUT, also for EVEN and ODD characters
     var input, even, odd string
-
+    //  scans(reads) the input 
     scanner := bufio.NewScanner(os.Stdin)
+    //  reads the amount of TESTS
     fmt.Scanf("%d", &tests)
-
+    //starts a cycle 
     for i :=0; i<tests; i++{
+    //sets even/odd to empty value
         even = ""
         odd = ""
+    //scans 
         scanner.Scan()
+    // input equals to scanned text
         input = scanner.Text()
+    // set a length
         length = len(input)
+    //split all the chars
         chars := strings.Split(input, "")
-
+     // start next cycle to find odd/even characters
         for j:=0; j<length; j++{
             if j%2 == 0{
                 even += chars[j]
@@ -382,7 +390,7 @@ func main() {
                 odd += chars[j]
             }
         }
-
+     // final print out
         fmt.Println(even, odd)
     }
 }
