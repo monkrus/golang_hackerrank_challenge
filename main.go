@@ -395,4 +395,68 @@ func main() {
     }
 }
 
+/* 8.
 
+Given the and array A of N integers, print A`s elements in reverse order as a single line of space-separated numbers
+*/
+
+package main
+
+import (
+    "bufio"
+    "fmt"
+    "io"
+    "os"
+    "strconv"
+    "strings"
+)
+
+
+
+func main() {
+    reader := bufio.NewReaderSize(os.Stdin, 1024 * 1024)
+
+    nTemp, err := strconv.ParseInt(readLine(reader), 10, 64)
+    checkError(err)
+    n := int32(nTemp)
+
+    arrTemp := strings.Split(readLine(reader), " ")
+
+    var arr []int32
+
+    for i := 0; i < int(n); i++ {
+        arrItemTemp, err := strconv.ParseInt(arrTemp[i], 10, 64)
+        checkError(err)
+        arrItem := int32(arrItemTemp)
+        arr = append(arr, arrItem)
+    }
+   
+    for i := len(arr); i > 0; i-- {
+		fmt.Printf("%d ", arr[i-1])
+    }
+}
+func readLine(reader *bufio.Reader) string {
+    str, _, err := reader.ReadLine()
+    if err == io.EOF {
+        return ""
+    }
+
+    return strings.TrimRight(string(str), "\r\n")
+}
+
+func checkError(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
+
+
+
+/* 9.
+Given n names and phone numbers, assemble a phone book that maps friends' names to their respective phone numbers. 
+You will then be given an unknown number of names to query your phone book for. For each  `name` queried, print the associated
+entry from your phone book on a new line in the form name=phoneNumber; 
+if an entry for `name` is not found, print `Not found` instead.
+
+Note: phone book should be a Dictionart/Map/HashMap data structure
+*/
