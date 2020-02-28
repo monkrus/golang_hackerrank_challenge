@@ -1,4 +1,4 @@
-// 1. To complete this challenge, 
+// 0. To complete this challenge, 
 // you must save a line of input from stdin to a variable, 
 // print Hello, World. on a single line, and finally print the value of your variable on a second line.`
 
@@ -53,7 +53,7 @@ s := bufio.NewScanner(os.Stdin)
 To complete the code in the editor below. The variables i, d, and s  are already declared and initialized for you. 
 You must:
 
-/* 2.
+/* 1.
 - Declare  variables: one of type int, one of type double, and one of type String.
 - Read  lines of input from stdin (according to the sequence given in the Input Format section below) and initialize your  variables.
 - Use the  operator to perform the following operations:
@@ -104,7 +104,7 @@ func main() {
 fmt.Printf("\n%s%s", s, z)
 }
 ********************
-/* 3.
+/* 2.
 Given the meal price (base cost of a meal), tip percent (the percentage of the meal price being added as tip),
 and tax percent (the percentage of the meal price being added as tax) for a meal, find and print the meal's total cost.
 
@@ -167,7 +167,7 @@ func checkError(err error) {
 **************************
 
 /*
-4. 
+3. 
 Given an integer, , perform the following conditional actions:
 If  is odd, print Weird
 If  is even and in the inclusive range of  to , print Not Weird
@@ -223,7 +223,7 @@ func checkError(err error) {
 }
 
 *******************8
-/* 5.
+/* 4.
 Write a Person class with an instance variable, aga, and a constructor that takes an integer, initialAge, as a parameter.
 
 The constructor must assign initialAge to age after confirmaing the argument passed as initialAge is not negative.
@@ -296,7 +296,7 @@ func main() {
 }
 
 
-/* 6.
+/* 5.
 Given an integer, n, print its first 10 multiples. 
 Each multiple n x i (where 1<= i <=10) should be printed on a new line in the form: n x i = result.
 */
@@ -343,7 +343,7 @@ func checkError(err error) {
 }
 
 
-/*  7.
+/*  6.
 
 Task
 Given a string,S, of length N that is indexed from 0 to N-1 , 
@@ -395,7 +395,7 @@ func main() {
     }
 }
 
-/* 8.
+/* 7.
 
 Given the and array A of N integers, print A`s elements in reverse order as a single line of space-separated numbers
 */
@@ -452,7 +452,7 @@ func checkError(err error) {
 
 
 
-/* 9.
+/* 8.
 Given n names and phone numbers, assemble a phone book that maps friends' names to their respective phone numbers. 
 You will then be given an unknown number of names to query your phone book for. For each  `name` queried, print the associated
 entry from your phone book on a new line in the form name=phoneNumber; 
@@ -460,3 +460,67 @@ if an entry for `name` is not found, print `Not found` instead.
 
 Note: phone book should be a Dictionart/Map/HashMap data structure
 */
+package main
+
+import (
+    "bufio"
+    "fmt"
+    "io"
+    "os"
+    "strconv"
+    "strings"
+)
+
+func main() {
+    phoneBook := make(map[string]string)
+    index := 0
+    howMany := 0
+
+    // Grab all inputs in loop
+    // Handle each input based on what type of input it is.
+    // First one is expected # of entries, then the entries, then the lookups
+    scanner := bufio.NewScanner(os.Stdin)
+    for scanner.Scan() {
+        text := scanner.Text()
+
+        switch { // true switch. always run
+        case index == 0:
+            // first loop. collect number of inputs
+            howManyTemp, err := strconv.ParseInt(text, 10, 64)
+            checkErr(err)
+            howMany = int(howManyTemp)
+        case index <= howMany:
+            // This is an entry for the phonebook
+            // Save input to the phonebook map
+            split := strings.Split(text, " ")
+            phoneBook[split[0]] = split[1]
+        default:
+            // All other inputs after the last entry
+            // These are the lookup requests
+            // Check each one against the phonebook
+            number, test := phoneBook[text]
+            if test == true {
+                fmt.Printf("%s=%s\n", text, number)
+            } else {
+                fmt.Printf("Not found\n")
+            }
+        }
+        // Increment the index
+        index++
+    }
+}
+
+func readLine(reader *bufio.Reader) string {
+    str, _, err := reader.ReadLine()
+    if err == io.EOF {
+        return ""
+    }
+    return strings.TrimRight(string(str), "\r\n")
+}
+
+func checkErr(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
+
