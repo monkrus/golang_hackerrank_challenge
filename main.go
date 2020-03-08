@@ -591,3 +591,54 @@ func checkError(err error) {
 Given a base- integer, n , convert it to binary (base-). 
 Then find and print the base-2 integer denoting the maximum number of consecutive 1's in n's binary representation.
 */
+package main
+
+import (
+    "bufio"
+    "fmt"
+    "io"
+    "os"
+    "strconv"
+    "strings"
+)
+func main() {
+    reader := bufio.NewReaderSize(os.Stdin, 1024 * 1024)
+
+    nTemp, err := strconv.ParseInt(readLine(reader), 10, 64)
+    checkError(err)
+    
+    count := 0
+    max := 0
+    bi := strconv.FormatInt(nTemp, 2)
+    for _, s := range bi {
+        if string(s) == "1" {
+            count++
+        } else {
+            if count > max {
+                max = count
+            }
+            count = 0
+        }
+
+        if count > max {
+            max = count
+        }
+    }
+    fmt.Println(max)
+}
+
+func readLine(reader *bufio.Reader) string {
+    str, _, err := reader.ReadLine()
+    if err == io.EOF {
+        return ""
+    }
+
+    return strings.TrimRight(string(str), "\r\n")
+}
+
+func checkError(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
+
