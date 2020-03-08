@@ -641,4 +641,44 @@ func checkError(err error) {
         panic(err)
     }
 }
+/*   11.
+Calculate the hourglass sum for every hourglass in A,then print the maximum hourglass sum.
+*/
+package main
+
+import "fmt"
+
+func main() {
+    //create a 6x6 array, read standard input, write to our array
+    A := [6][6]int{}
+    for i := 0; i < 6; i++ {
+        for j := 0; j < 6; j++ {
+            fmt.Scanf("%d", &A[i][j])
+        }
+    }
+
+    //looking for the maximum value of hourglass in our array
+    var maximumHourglass, currentHourglass int
+    maximumHourglass = -63 //set minimum possible value of hourglass with all elements -9
+    for i := 0; i < 4; i++ {
+        for j := 0; j < 4; j++ {
+            currentHourglass = A[i][j] + A[i][j+1] + A[i][j+2] + A[i+1][j+1] + A[i+2][j] + A[i+2][j+1] + A[i+2][j+2]
+            if currentHourglass > maximumHourglass {
+                maximumHourglass = currentHourglass
+            }
+        }
+    }
+
+    //print our maximum value to STDOUT
+    fmt.Println(maximumHourglass)
+}
+
+/*
+Please see the execution order for the abovementioned code
+
+i+2   [5] [6] [7]
+i+1       [4]
+i     [3] [2] [1]
+       j  j+1 j+2
+*/
 
