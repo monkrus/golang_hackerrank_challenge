@@ -4,7 +4,7 @@
 # Solutions 14 to 30 are written in Python
 HackerRank 30 days of code challenge.
 
-For simplicity, we added all solutions in the main.go file in the "question-answer" format.
+For simplicity, we added all solutions in the "question-answer" format.
 
 
 
